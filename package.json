@@ -1,0 +1,23 @@
+{
+  "name": "JARVIS",
+  "version": "0.0.0",
+  "description": "GroupMe servant bot",
+  "main": "index.js",
+  "dependencies": {
+    "init-package-json": "^1.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:bradwarrum/Jarvis.git"
+  },
+  "keywords": [
+    "GroupMe",
+    "bot"
+  ],
+  "author": "Brad Warrum",
+  "license": "ISC"
+}
