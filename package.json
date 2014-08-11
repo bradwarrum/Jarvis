@@ -5,7 +5,7 @@
   "main": "jarvis.js",
   "dependencies": {
     "init-package-json": "^1.0.0",
-    "string": "^1.9.1"
+    "string": "^1.9.1",
 	"node-schedule":"0.1.13"
   },
   "devDependencies": {},
