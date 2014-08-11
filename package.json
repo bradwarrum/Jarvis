@@ -2,9 +2,10 @@
   "name": "JARVIS",
   "version": "0.0.0",
   "description": "GroupMe servant bot",
-  "main": "index.js",
+  "main": "jarvis.js",
   "dependencies": {
-    "init-package-json": "^1.0.0"
+    "init-package-json": "^1.0.0",
+    "string": "^1.9.1"
   },
   "devDependencies": {},
   "scripts": {
