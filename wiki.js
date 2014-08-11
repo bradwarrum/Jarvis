@@ -6,7 +6,7 @@ exports.request = function(title, callback) {
 	var params = {"action":"query",
 					"prop":"extracts",
 					"format":"json",
-					"exchars":600,
+					"exchars":900,
 					"exlimit":1,
 					"exintro":"",
 					"titles":title};

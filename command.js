@@ -12,17 +12,17 @@ var jarUnknown = function() {
 
 exports.parse = function(body) {
 	//var text = JSON.parse(body)['text'];
-	var text = body;
+	var text = body.trim();
 	if (text !== undefined) {
 		// First test if someone called our name
 		var jname = /^Jarvis.*$/gi.test(text);
 		if (jname) {
-			var jmatch = /^Jarvis.*(wiki|showtime|help)[^ ]*(.*)$/gi.exec(text);
+			var jmatch = /^Jarvis.*((wiki|weather|forecast)( for)?|help|say|reminder|cancel)[^ ]*(.*)/gi.exec(text);
 			if (jmatch !== null) {
-				console.log("Match");
-				console.log("Command: " + jmatch[1] + "\n" + "Target: " + jmatch[2]);
-				return {"command": jmatch[1],
-						"target": jmatch[2],
+				console.log("Match: " + jmatch);
+				console.log("Command: " + jmatch[1] + "\n" + "Target: " + jmatch[4]);
+				return {"command": jmatch[1].trim(),
+						"target": jmatch[4].trim(),
 						"nullresp": null};
 			} else {
 				// We were called but the command doesn't match. Return a response.
