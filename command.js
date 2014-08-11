@@ -11,8 +11,13 @@ var jarUnknown = function() {
 }
 
 exports.parse = function(body) {
-	//var text = JSON.parse(body)['text'];
-	var text = body.trim();
+	var text = "";
+	try {
+		text = JSON.parse(body)['text'].trim();
+	} catch (e) {
+		text = "";
+	}
+	//var text = body.trim();
 	if (text !== undefined) {
 		// First test if someone called our name
 		var jname = /^Jarvis.*$/gi.test(text);
