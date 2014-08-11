@@ -24,7 +24,7 @@ var helpstr = "Jarvis\n\n" +
 				"   Display this help message";
 
 
-
+process.env.TZ = "America/New_York";
 var processPost = function(req,res, callback) {
 	var querydata = "";
 	if (typeof callback !== 'function') return null;
