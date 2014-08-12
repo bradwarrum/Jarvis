@@ -6,9 +6,11 @@ exports.request = function(title, callback) {
 	var params = {"action":"query",
 					"prop":"extracts",
 					"format":"json",
-					"exchars":900,
+					"exchars":800,
 					"exlimit":1,
-					"exintro":"",
+					"explaintext":"",
+					"exsectionformat":"plain",
+					"redirects":"",
 					"titles":title};
 	var fparams = "/w/api.php?" + qs.stringify(params);
 	var options = {"hostname": "en.wikipedia.org",
