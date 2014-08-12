@@ -11,26 +11,6 @@ var _GCL = {"VERSION": "v0.1.20",
 			"CL": "Wiki fetching reliability greatly improved.\n\n" + 
 			"v0.1.18\nI can do recurring events now.  Chunked content now sends to GroupMe in order."};
 
-var helpstr = "Jarvis\n\n" + 
-				"\"Jarvis, wiki [Page Title]\"\n" + 
-				"   Summarize a Wikipedia article\n" + 
-				"\"Jarvis, weather [Zip | City, ST]\"\n" +
-				"   Display current weather conditions\n" + 
-				"\"Jarvis, forecast [Zip | City, ST]\"\n" +
-				"   Display 7-day forecast\n" + 
-				"\"Jarvis, say [message]\"\n" + 
-				"   Repeat the message.\n" +
-				"\"Jarvis, reminder [Month Day, Time] [Message]\"\n" + 
-				"   Say something at a specific time.\n" + 
-				"\"Jarvis, cancel [token]\"\n" + 
-				"   Cancel a reminder with the given token\n" + 
-				"\"Jarvis, recurrence [daily|[weekly|monthly] [day]] [time] [message]\"\n" + 
-				"   Schedule a recurrence event\n" +
-				"\"Jarvis, version\"\n" + 
-				"   Display the changelog and version number\n" + 
-				"\"Jarvis, help\"\n" + 
-				"   Display this help message";
-
 console.log("Server running " + _GCL.VERSION);
 if (groupme._gadebug) console.log("Debug mode is ACTIVE");
 else console.log("Debug mode is INACTIVE");
@@ -202,14 +182,14 @@ var server = http.createServer(function(req, res) {
 					groupme.send("No reminder found with that id.");
 				}
 			}else if (cmd["command"] == "help") {
-				groupme.send(helpstr);
+				groupme.send("Use help docs at\n\nhttp://www.github.com/bradwarrum/Jarvis");
 				//res.end(helpstr);
 			}else if (cmd.command == "say") {
 				console.log(cmd.target);
 				groupme.send(cmd.target.toString());
 				//res.end(cmd.target);
 			}else if (cmd.command == "version") {
-				groupme.send(_GCL.VERSION + "\n" + _GCL.CL);
+				groupme.send(_GCL.VERSION + "\n" + _GCL.CL + "\n\nhttp://github.com/bradwarrum/Jarvis/");
 			} else {
 				//res.end();
 			}
