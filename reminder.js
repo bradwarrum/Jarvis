@@ -46,6 +46,6 @@ exports.cancel = function(id) {
 
 function ralarm(message, id) {
 	console.log("Alarm: " + message);
-	groupme.send("Reminder: " + message);
+	groupme.send(message);
 	references.splice(id, 1);
 }
