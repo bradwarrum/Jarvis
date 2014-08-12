@@ -22,7 +22,7 @@ exports.parse = function(body) {
 		// First test if someone called our name
 		var jname = /^Jarvis.*$/gi.test(text);
 		if (jname) {
-			var jmatch = /^Jarvis.*((wiki|weather|forecast)( for)?|help|say|reminder|cancel)[^ ]*(.*)/gi.exec(text);
+			var jmatch = /^Jarvis.*?((wiki|weather|forecast)( for)?|help|say|reminder|cancel)[^ ]*(.*)/gi.exec(text);
 			if (jmatch !== null) {
 				console.log("Match: " + jmatch);
 				console.log("Command: " + jmatch[1] + "\n" + "Target: " + jmatch[4]);

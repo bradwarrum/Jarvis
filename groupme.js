@@ -10,7 +10,7 @@ function _control(message) {
 	if (message.length > 450) {
 		_send(message.substring(0,450));
 		message = message.substring(450);
-		setTimeout(_control(message), 2000);
+		setTimeout(_control(message), 7000);
 	} else {
 		_send(message);
 	}
