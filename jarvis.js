@@ -123,14 +123,16 @@ var server = http.createServer(function(req, res) {
 				var stuff = cmd.target.split(/([,\:\s/]+)/g);
 				//for(var v in stuff) v = v.trim().trim(',').trim(':').trim('\n');
 				var msg = "";
-				for (var vi = 4; vi < stuff.length; vi++) {
-					msg += stuff[vi] + " ";
+				if (stuff.length > 8) {
+				for (var vi = 8; vi < stuff.length; vi++) {
+					msg += stuff[vi];
 				}
 				var st = new reminder.STime(stuff[0].trim().trim(',').trim(':').trim('\n'),
-											stuff[1].trim().trim(',').trim(':').trim('\n'),
-											stuff[2].trim().trim(',').trim(':').trim('\n'), 
-											stuff[3].trim().trim(',').trim(':').trim('\n'));
+											stuff[2].trim().trim(',').trim(':').trim('\n'),
+											stuff[4].trim().trim(',').trim(':').trim('\n'), 
+											stuff[6].trim().trim(',').trim(':').trim('\n'));
 				console.log(msg);
+				console.log(stuff);
 				var jid = reminder.setup(st, msg);
 				if (jid == -1) {
 					//res.end("Date is in the past, cannot schedule reminder.");
@@ -141,6 +143,9 @@ var server = http.createServer(function(req, res) {
 				} else {
 					//res.end("Reminder scheduled. Cancel with this token: " + jid);
 					groupme.send("Reminder scheduled. Cancel with this token: " + jid);
+				}
+				} else {
+					groupme.send("Invalid reminder command, try again.");
 				}
 			}else if (cmd.command == "cancel") {
 				var c = reminder.cancel(parseInt(cmd.target));
