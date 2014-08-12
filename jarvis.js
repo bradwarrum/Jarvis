@@ -121,12 +121,15 @@ var server = http.createServer(function(req, res) {
 			} else if (cmd.command == "reminder") {
 				cmd.target = cmd.target.trim();
 				var stuff = cmd.target.split(/([,\:\s/]+)/g);
-				for(var v in stuff) v = v.trim().trim(',').trim(':').trim('\n');
+				//for(var v in stuff) v = v.trim().trim(',').trim(':').trim('\n');
 				var msg = "";
 				for (var vi = 4; vi < stuff.length; vi++) {
 					msg += stuff[vi] + " ";
 				}
-				var st = new reminder.STime(stuff[0], stuff[1], stuff[2], stuff[3]);
+				var st = new reminder.STime(stuff[0].trim().trim(',').trim(':').trim('\n'),
+											stuff[1].trim().trim(',').trim(':').trim('\n'),
+											stuff[2].trim().trim(',').trim(':').trim('\n'), 
+											stuff[3].trim().trim(',').trim(':').trim('\n'));
 				console.log(msg);
 				var jid = reminder.setup(st, msg);
 				if (jid == -1) {
