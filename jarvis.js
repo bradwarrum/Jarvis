@@ -120,8 +120,8 @@ var server = http.createServer(function(req, res) {
 				});
 			} else if (cmd.command == "reminder") {
 				cmd.target = cmd.target.trim();
-				var stuff = cmd.target.split(/[,\:\s/]+/);
-				for(var v in stuff) v.trim();
+				var stuff = cmd.target.split(/([,\:\s/]+)/g);
+				for(var v in stuff) v = v.trim().trim(',').trim(':').trim('\n');
 				var msg = "";
 				for (var vi = 4; vi < stuff.length; vi++) {
 					msg += stuff[vi] + " ";
