@@ -14,7 +14,7 @@ function _control(message) {
 	if (message.length > 450) {
 		_send(message.substring(0,450));
 		message = message.substring(450);
-		setTimeout(function() {_control(message)}, 5000);
+		setTimeout(function() {_control(message)}, 3000);
 	} else {
 		_send(message);
 	}
