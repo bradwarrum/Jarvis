@@ -14,7 +14,7 @@ function _control(message) {
 	if (message.length > 450) {
 		_send(message.substring(0,450));
 		message = message.substring(450);
-		setTimeout(_control(message), 7000);
+		setTimeout(function() {_control(message)}, 5000);
 	} else {
 		_send(message);
 	}
@@ -25,7 +25,6 @@ function _send (message) {
 	var options = {"host":"api.groupme.com", "path":"/v3/bots/post", "method":"post", "headers": headers};
 	
 	var req = https.request(options, function(response) {
-		console.log("HEADERS " + response.headers);
 		response.on('data', function() {});
 	});
 	req.write(jsonstr);

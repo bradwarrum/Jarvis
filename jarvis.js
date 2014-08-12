@@ -7,7 +7,7 @@ var weather = require('./weather.js');
 var reminder = require('./reminder.js');
 var groupme = require('./groupme.js');
 var schedule = require('node-schedule');
-var _GCL = {"VERSION": "v0.1.17", "CL":"I can do recurring events now and all events are pooled."};
+var _GCL = {"VERSION": "v0.1.18", "CL":"I can do recurring events now.  Multi-message content now sends to GroupMe in order reliably."};
 
 var helpstr = "Jarvis\n\n" + 
 				"\"Jarvis, wiki [Page Title]\"\n" + 
