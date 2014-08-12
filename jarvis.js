@@ -6,6 +6,8 @@ var command = require('./command.js');
 var weather = require('./weather.js');
 var reminder = require('./reminder.js');
 var groupme = require('./groupme.js');
+var schedule = require('node-schedule');
+var _GCL = {"VERSION": "v0.1.17", "CL":"I can do recurring events now and all events are pooled."};
 
 var helpstr = "Jarvis\n\n" + 
 				"\"Jarvis, wiki [Page Title]\"\n" + 
@@ -20,9 +22,16 @@ var helpstr = "Jarvis\n\n" +
 				"   Say something at a specific time.\n" + 
 				"\"Jarvis, cancel [token]\"\n" + 
 				"   Cancel a reminder with the given token\n" + 
+				"\"Jarvis, recurrence [daily|[weekly|monthly] [day]] [time] [message]\"\n" + 
+				"   Schedule a recurrence event\n" +
+				"\"Jarvis, version\"\n" + 
+				"   Display the changelog and version number\n" + 
 				"\"Jarvis, help\"\n" + 
 				"   Display this help message";
 
+console.log("Server running " + _GCL.VERSION);
+if (groupme._gadebug) console.log("Debug mode is ACTIVE");
+else console.log("Debug mode is INACTIVE");
 
 process.env.TZ = "America/New_York";
 var processPost = function(req,res, callback) {
@@ -118,7 +127,38 @@ var server = http.createServer(function(req, res) {
 					} //else res.end()
 						
 				});
-			} else if (cmd.command == "reminder") {
+			} else if (cmd.command === "recurrence") {
+				var rec = new schedule.RecurrenceRule();
+				console.log(rec);
+				var stuff = cmd.target.split(/([,\:\s/]+)/g);
+				var jid = -2;
+				if (stuff !== null) {
+					if (stuff[0] === "daily") {
+						var msg = "";
+						for (var vi = 6; vi < stuff.length; vi++) {
+							msg += stuff[vi];
+						}
+						jid = reminder.setuprecurrence(stuff[0], null, stuff[2], stuff[4], msg);
+					} else if (stuff[0] === "monthly" || stuff[0] === "weekly") {
+						var msg = "";
+						for (var vi = 8; vi<stuff.length; vi++) {
+							msg += stuff[vi];
+						}
+						jid = reminder.setuprecurrence(stuff[0], stuff[2], stuff[4], stuff[6], msg);
+					} else {
+						groupme.send("Recurrence mode \"" + stuff[0] + "\" not supported.");
+						return;
+					}
+					if (jid == -1) {
+						groupme.send("Date is invalid.");
+					} else {
+						//res.end("Reminder scheduled. Cancel with this token: " + jid);
+						groupme.send("Recurrence scheduled. Cancel with this token: " + jid);
+					}
+				} else {
+					groupme.send("Parsing error on recurrence rule.");
+				}
+			}else if (cmd.command === "reminder") {
 				cmd.target = cmd.target.trim();
 				var stuff = cmd.target.split(/([,\:\s/]+)/g);
 				//for(var v in stuff) v = v.trim().trim(',').trim(':').trim('\n');
@@ -127,6 +167,7 @@ var server = http.createServer(function(req, res) {
 				for (var vi = 8; vi < stuff.length; vi++) {
 					msg += stuff[vi];
 				}
+				//Probably can remove all those trim statements
 				var st = new reminder.STime(stuff[0].trim().trim(',').trim(':').trim('\n'),
 											stuff[2].trim().trim(',').trim(':').trim('\n'),
 											stuff[4].trim().trim(',').trim(':').trim('\n'), 
@@ -149,6 +190,7 @@ var server = http.createServer(function(req, res) {
 				}
 			}else if (cmd.command == "cancel") {
 				var c = reminder.cancel(parseInt(cmd.target));
+				console.log(c);
 				if (c) {
 					//res.end("Reminder with id " + cmd.target + " was canceled.");
 					groupme.send("Reminder with id " + cmd.target + " was canceled.");
@@ -164,7 +206,9 @@ var server = http.createServer(function(req, res) {
 				console.log(cmd.target);
 				groupme.send(cmd.target.toString());
 				//res.end(cmd.target);
-			}else {
+			}else if (cmd.command == "version") {
+				groupme.send(_GCL.VERSION + "\n" + _GCL.CL);
+			} else {
 				//res.end();
 			}
 		} else {

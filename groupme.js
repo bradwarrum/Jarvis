@@ -1,9 +1,13 @@
 var https = require('https');
 var bid = "303b52438d097407caa94ef5cd";
-
+var gadebug = false;
+exports._gadebug = gadebug;
 exports.send = function(message) {
-	_control(message);
-
+	if (!gadebug) {
+		_control(message);
+	} else {
+		console.log("SEND CMD INTERCEPT: " + message);
+	}
 	
 }
 function _control(message) {
